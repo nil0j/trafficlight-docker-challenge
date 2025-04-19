@@ -1,0 +1,32 @@
+networks:
+    traffic-light:
+        ipam:
+            config:
+                - subnet: 172.20.0.0/16
+                  gateway: 172.20.0.1
+
+services:
+    red-app:
+        image: trafficlight/red:v1.0
+        networks:
+            - traffic-light
+
+    yellow-app:
+        image: trafficlight/yellow:v1.0
+        networks:
+            - traffic-light
+
+    green-app:
+        image: trafficlight/green:v1.0
+        networks:
+            - traffic-light
+
+    nginx-load-balancer:
+        image: nginx:latest
+        ports:
+            - "80:80"
+        volumes:
+            - ./nginx/conf/:/etc/nginx/conf.d/
+            - ./nginx/log/:/var/log/nginx/
+        networks:
+            - traffic-light
