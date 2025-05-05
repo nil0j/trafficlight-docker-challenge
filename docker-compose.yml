@@ -7,17 +7,20 @@ networks:
 
 services:
     red-app:
-        image: trafficlight/red:v1.0
+        build:
+            context: ./red
         networks:
             - traffic-light
 
     yellow-app:
-        image: trafficlight/yellow:v1.0
+        build:
+            context: ./yellow
         networks:
             - traffic-light
 
     green-app:
-        image: trafficlight/green:v1.0
+        build:
+            context: ./green
         networks:
             - traffic-light
 
